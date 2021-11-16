@@ -1,9 +1,10 @@
-# Laravel 8 - Creating Crud with Jetstream Livewire & Tailwind Modal
-
 ![display](https://repository-images.githubusercontent.com/425272523/3708f28e-813a-4e29-8800-c1389632ffb9)
+
+# Laravel 8 - Creating Crud with Jetstream Livewire & Tailwind Modal
 
 This guide walks you through the process of building a Laravel 8 application that uses Jetstream Livewire and tailwind for UI.
 
+Check this tutorial on my [Blog](https://djamelkorei.hashnode.dev/laravel-8-creating-crud-with-jetstream-livewire-and-tailwind-modal) 👋
 ## What You Will build
 You will build a Laravel application with full CRUD (Create, Read, Update, and Delete)
 
@@ -16,7 +17,7 @@ You will build a Laravel application with full CRUD (Create, Read, Update, and D
 
 ## Setup A New Project 
 Create a new Laravel project by using Composer:
-```
+```bash
 composer create-project laravel/laravel laravel-8-crud-jetstream-livewire-tailwind
 cd laravel-8-crud-jetstream-livewire-tailwind
 php artisan serve
@@ -24,7 +25,7 @@ php artisan serve
 
 #### Installing Jetstream
 You may use Composer to install Jetstream into your new Laravel project:
-``` 
+```
 composer require laravel/jetstream 
 ```
 
@@ -58,7 +59,7 @@ php artisan make:model Product -mf
 
 #### Update The Migration Class
 Go to the file `database/migrations/xxxx_xx_xx_xxxxxx_create_products_table.php` and update the table columns
-```
+```php
 /**
  * Run the migrations.
  *
@@ -79,7 +80,7 @@ public function up()
 
 #### Update The Models
 Go to the file `app/Models/Product.php` and update the product model class
-```
+```php
 <?php
 
 namespace App\Models;
@@ -100,7 +101,7 @@ class Product extends Model
 ```
 
 Go to the file `app/Models/user.php` and update the user model class
-```
+```php
 <?php
 
 namespace App\Models;
@@ -171,7 +172,7 @@ class User extends Authenticatable
 
 #### Update The Product Factory Class
 Go to the file `database/factories/ProductFactory.php` and update the factory class
-```
+```php
 <?php
 
 namespace Database\Factories;
@@ -220,14 +221,14 @@ php artisan make:livewire products
 ``` 
 #### Define The Product Route
 Go to the file `routes/web.php` and add the product route
-```
+```php
 Route::middleware(['auth:sanctum', 'verified'])->get('/products', function () {
     return view('products');
 })->name('products');
 ```
 #### Create The Product View
 Create a new file `resources/views/products.blade.php` and pass the code below
-```
+```html
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -246,7 +247,7 @@ Create a new file `resources/views/products.blade.php` and pass the code below
 ```
 #### Add Link To The Products View
 Go to the file `resources/views/navigation-dropdown.blade.php` and update the componentn, pass the snippet code below
-```
+```html
 <!-- Navigation Links -->
 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -259,7 +260,7 @@ Go to the file `resources/views/navigation-dropdown.blade.php` and update the co
     </x-jet-nav-link>
 </div>
 ```
-```
+```html
 <!-- Responsive Navigation Menu -->
 <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
@@ -276,7 +277,7 @@ Go to the file `resources/views/navigation-dropdown.blade.php` and update the co
 
 ## Setup The List Products
 Go to the file `app/Http/Livewire/Products.php` and update the class
-```
+```php
 <?php
 
 namespace App\Http\Livewire;
@@ -300,7 +301,7 @@ class Products extends Component
 }
 ```
 Go to the file `resources/views/livewire/products.blade.php` and update the view 
-```
+```html
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
     {{-- Header Section --}}
@@ -383,7 +384,7 @@ Go to the file `resources/views/livewire/products.blade.php` and update the view
 ## Setup The Update Products
 
 Go to the file `app/Http/Livewire/Products.php` and update the class
-```
+```php
 public $product;
 public $confirmingProductUpdate = false;
 
@@ -393,7 +394,7 @@ protected $rules = [
     'product.active' => 'boolean'
 ];
 ```
-```
+```php
 public function confirmProductAdd()
 {
     $this->reset(['product']);
@@ -427,7 +428,7 @@ public function saveProduct()
 }
 ```
 Go to the file `resources/views/livewire/products.blade.php` and update the view
-```
+```html
 {{-- Header Section --}}
 <div class="mt-8 pb-4 text-2xl flex justify-between">
     <div>Products List</div>
@@ -439,14 +440,14 @@ Go to the file `resources/views/livewire/products.blade.php` and update the view
     </div>
 </div>
 ```
-```
+```html
 {{-- Edit Button Action --}}
 <x-jet-button wire:click="confirmProductEdit( {{ $product->id }})"
     class="bg-orange-500 hover:bg-orange-700">
     Edit
 </x-jet-button>
 ```
-```
+```html
 {{-- Modal Section --}}
 <x-jet-dialog-modal wire:model="confirmingProductUpdate">
     <x-slot name="title">
@@ -487,10 +488,10 @@ Go to the file `resources/views/livewire/products.blade.php` and update the view
 ```
 ## Setup The Delete Products
 Go to the file `app/Http/Livewire/Products.php` and update the class
-```
+```php
 public $confirmingProductDeletion = false;
 ```
-```
+```php
 public function confirmProductDeletion($id)
 {
     $this->confirmingProductDeletion = $id;
@@ -504,14 +505,14 @@ public function deleteProduct(Product $product)
 }
 ```
 Go to the file `resources/views/livewire/products.blade.php` and update the view
-```
+```html
 {{-- Delete Button Action --}}
 <x-jet-danger-button wire:click="confirmProductDeletion( {{ $product->id }})"
     wire:loading.attr="disabled">
     Delete
 </x-jet-danger-button>
 ```
-```
+```html
 {{-- Modal Section --}}
 <x-jet-confirmation-modal wire:model="confirmingProductDeletion">
     <x-slot name="title">
@@ -537,7 +538,7 @@ Go to the file `resources/views/livewire/products.blade.php` and update the view
 
 ## Setup The Alert Message
 Go to the file `resources/views/livewire/products.blade.php` and update the view
-```
+```html
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
 @if (session()->has('message'))
@@ -572,5 +573,6 @@ Login credentials `email=admin@admin.com` & `password=password`
 
 Congratulations 🎉 ! You have written a Full CRUD Application by using Laravel 8. You did it without having to write a single line of JavaScript and that is with the help of Livewire.
 
-The tutorial can be found here on [Github](https://github.com/djamel-kr/laravel-tutorials/tree/main/laravel-8-crud-jetstream-livewire-tailwind) 
+## Blog
 
+Check new tutorials on my [Blog](https://djamelkorei.hashnode.dev/) 👋
