@@ -4,7 +4,7 @@
 
 This guide walks you through the process of building a Laravel 8 application that uses Jetstream Livewire and tailwind for UI.
 
-Check this tutorial on my [Blog](https://djamelkorei.hashnode.dev/laravel-8-creating-crud-with-jetstream-livewire-and-tailwind-modal) 👋
+Check this tutorial on my [Blog](https://dev.djamelkorei.me/laravel-8-creating-crud-with-jetstream-livewire-and-tailwind-modal) 👋
 ## What You Will build
 You will build a Laravel application with full CRUD (Create, Read, Update, and Delete)
 
@@ -575,4 +575,4 @@ Congratulations 🎉 ! You have written a Full CRUD Application by using Laravel
 
 ## Blog
 
-Check new tutorials on my [Blog](https://djamelkorei.hashnode.dev/) 👋
+Check new tutorials on my [Blog](https://dev.djamelkorei.me/) 👋
